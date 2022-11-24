@@ -30,7 +30,8 @@ public class Menu extends Cliente {
         this.ponte.escolherBebida();
     }
     
-     public void finalizarPedidoBebida() {
+    public void finalizarPedidoBebida(){
         this.ponte.finalizarPedidoBebida();
     }
+
 }

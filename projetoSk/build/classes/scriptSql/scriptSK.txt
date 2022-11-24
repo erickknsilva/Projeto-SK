@@ -1,0 +1,119 @@
+CREATE SCHEMA `siri_kaskudo` ;
+
+create table ingredientes(
+idIngredientes int auto_increment,
+nome_ingredientes varchar(50) not null,
+peso_kg double not null,
+primary key(idIngredientes)
+);
+
+create table itens (
+        idItens int primary key auto_increment, 
+        fk_ingredientes_1 int,
+        fk_ingredientes_2 int,
+        fk_ingredientes_3 int,
+        fk_ingredientes_4 int,
+        fk_ingredientes_5 int,
+        fk_ingredientes_6 int,
+        fk_ingredientes_7 int,
+        fk_ingredientes_8 int,
+        foreign key (fk_ingredientes_1) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_2) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_3) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_4) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_5) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_6) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_7) references Ingredientes (idIngredientes),
+        foreign key (fk_ingredientes_8) references Ingredientes (idIngredientes)
+);
+
+create table pratos (
+        idPrato int primary key auto_increment,
+        nome_prato varchar(50) not null, 
+        valor_prato double not null, 
+        descricao_prato varchar(100),
+        fk_id_itens int,
+        foreign key (fk_id_itens) references itens (idItens)      
+);
+
+
+
+create table bebidas(
+idBebidas int auto_increment,
+nomeBebida varchar(30) not null,
+quantidade int not null,
+valor double,
+primary key(idBebidas));
+
+
+
+
+
+insert into ingredientes (nome_ingredientes,  peso_kg) 
+values("Macarrao ",50),
+      ("Alface ", 30),
+      ("Tomate ", 30),
+      ("Peixe ", 50),
+      ("Carne Bovina", 50),
+      ("Calabresa ", 50),
+      ("Batata", 50),
+      ("MolhoTomate ", 50),
+      ("Cenoura ", 50),
+      ("Batata palha ",20),
+      ("carneSuina ",50);
+
+
+
+
+INSERT INTO  itens
+(fk_ingredientes_1,fk_ingredientes_2,fk_ingredientes_3,fk_ingredientes_4,fk_ingredientes_5,fk_ingredientes_6)
+ VALUES (1,2,6,4,5);
+
+INSERT INTO  itens
+(fk_ingredientes_1,fk_ingredientes_2,fk_ingredientes_3,fk_ingredientes_4,fk_ingredientes_5,fk_ingredientes_6)
+ VALUES (1,2,7,4,5,9);
+
+INSERT INTO  itens
+(fk_ingredientes_1,fk_ingredientes_2,fk_ingredientes_3,fk_ingredientes_4,fk_ingredientes_5,fk_ingredientes_6)
+ VALUES  (1,2,8,4,5,9);
+
+
+INSERT INTO  itens (fk_ingredientes_1,fk_ingredientes_2,fk_ingredientes_3,fk_ingredientes_4, fk_ingredientes_5) 
+ VALUES  (3,10,7,9,11);
+
+INSERT INTO  itens
+(fk_ingredientes_1,fk_ingredientes_2,fk_ingredientes_3,fk_ingredientes_4,fk_ingredientes_5,fk_ingredientes_6)
+ VALUES (3,10,11,4,5,11);
+
+
+
+insert into pratos (nome_prato, valor_prato,descricao_prato, fk_id_itens) 
+values ("Peixe Assado", 28.90, "Descrição: Arroz, feijão, peixe assado e salada: alface e tomate", 1);
+
+insert into pratos (nome_prato, valor_prato,descricao_prato, fk_id_itens) 
+values ("Bife com Fritas", 25.90, "Descrição: Arroz, feijão, bife bem passado e salada: alface e tomate", 2);
+
+insert into pratos (nome_prato, valor_prato,descricao_prato, fk_id_itens) 
+values ("Calabressa com Fritas", 23.55, "Descrição: Arroz, feijão, calabressa firta e salada: alface e tomate", 3);
+
+insert into pratos (nome_prato, valor_prato,descricao_prato, fk_id_itens) 
+values ("Macarronada", 24.90, "Descrição: Macarrao, molho de tomate,carne moida batata e cenoura picada", 5);
+
+insert into pratos (nome_prato, valor_prato,descricao_prato, fk_id_itens) 
+values ("Strogonoff", 30.90, "Descrição: Arroz, feijao, frango picado, batatapalha e salada: tomate e alface", 6);
+
+
+
+
+insert into bebidas (nomeBebida, quantidade,valor)
+values
+("Coca-Cola 1l",  28, 8.00),
+("Fanta Uva 1l", 25, 10.00), 
+("Fanta Laranja 1l", 30, 7.00),
+("Sprite 1l", 30, 7.00),
+("Dolly 1l", 35, 5.00),
+("Copo: Suco de laranja", 100, 8.00),
+("Copo: Suco de limão", 100, 8.00),
+("Copo: Suco de abacaxi", 50, 10.00),
+("Água mineral", 100, 4.00);
+

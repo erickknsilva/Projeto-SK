@@ -8,10 +8,9 @@ public class PedidoApp {
 
         Menu menu = new Menu("Erick", "Nunes", "145.654");
 
-        menu.infoCliente();
-        menu.exibirCardapio();
+//        menu.exibirCardapio();
         menu.finalizarPedido();
-        System.out.println();
-        menu.finalizarPedidoBebida();
+//        menu.escolherBebidas();
+
     }
 }

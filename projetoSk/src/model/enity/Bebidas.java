@@ -62,7 +62,8 @@ public class Bebidas {
 
     @Override
     public String toString() {
-        return "Bebidas " + "idBebida: " + idBebida + ", nome: " + nome + ", preco: " + preco;
+        String formata = String.format("ID: %d, nome: %s, preco: %.2f", idBebida, nome, preco);
+        return formata;
     }
 
 }

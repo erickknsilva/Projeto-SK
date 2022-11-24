@@ -62,7 +62,8 @@ public class Pratos {
 
     @Override
     public String toString() {
-        return "\nPratos " + id + ": " + nome + "\nDescricao: " + descricao + ".\nPreco: " + valor;
+        String formata = String.format("\nPratos %d: %s\n%s.\nPreco: %.2f", id, nome, descricao, valor);
+        return formata;
     }
 
 }

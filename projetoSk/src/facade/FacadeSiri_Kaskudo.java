@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package facade;
 
 import java.util.Scanner;
+import model.BEAN.Cliente;
+import model.BEAN.Pagamento;
+import model.BEAN.ThreadSiriCascudo;
 import model.DAO.MetodosDAO;
 import model.enity.Bebidas;
 import model.enity.Pratos;
@@ -13,9 +12,12 @@ import model.enity.Pratos;
  *
  * @author eric
  */
-public class FacadeSiri_Kaskudo {
+public class FacadeSiri_Kaskudo implements Pagamento {
 
+    Pratos p = new Pratos();
+    Bebidas b = new Bebidas();
     private MetodosDAO funcoes;
+    private static int contador = 0;
 
     //essa classe faz a ponte com as funcoes do banco de dados
     public FacadeSiri_Kaskudo() {
@@ -38,12 +40,10 @@ public class FacadeSiri_Kaskudo {
         return prato;
     }
 
-    public void finalizarPedido() {
-        Pratos prato = this.funcoes.finalizarPedido(escolherPrato());
-        System.out.println(prato.toString());
-    }
-
     public int escolherBebida() {
+        int numberBebida = 0;
+        int i = 0;
+
         Scanner entrada = new Scanner(System.in);
 
         System.out.print("\nVocê gostaria de adicionar alguma bebida ?\n" //
@@ -52,38 +52,87 @@ public class FacadeSiri_Kaskudo {
                 + "Numero escolhido: ");
         int opcaoBebida = entrada.nextInt();
 
-        int numberBebida = 0;
+        while (opcaoBebida != 2) {
+            //pergunta quantas bebidas
+//            if (opcaoBebida == 1) {
+//                System.out.print("Quantas bebidas deseja adicionar: ");
+//                contador = entrada.nextInt();
+//            }
 
-        for (;;) {
-            while (opcaoBebida != 2) {
-                if (opcaoBebida > 0 || opcaoBebida <= 9) {
-                    if (opcaoBebida == 1)//
-                    {
-                        System.out.print("\nPresione 0 para cancelar a bebida.");
-                        this.funcoes.escolherBebida();
+            if (opcaoBebida == 1)//
+            {
+//                for (int j = 0; j < contador; j++) {
+                if (numberBebida >= 1 || opcaoBebida <= 9) {
+                    System.out.print("\nPresione 0 para cancelar a bebida.\n");
+                    this.funcoes.escolherBebida();
 
-                        System.out.println("\nEscolha o numero da bebida!");
-                        numberBebida = entrada.nextInt();
-                        return numberBebida;
-                    }//fim do if interno
-                    else {
-                        System.out.println("\nBebida não encontrada.");
-                        System.out.print("Você gostaria de adicionar alguma bebida ?\n" //
-                                + "1 = Sim\n" //
-                                + "2 = Não\n"//
-                                + "Numero escolhido: ");
-                        opcaoBebida = entrada.nextInt();
-                    }
-                }//fim do if externo
-            }//fim do while
-            break;
-        }//fim do for infinito
+                    System.out.print("\nEscolha o numero da bebida.\nNumero escolhido: ");
+                    numberBebida = entrada.nextInt();
+
+                    //pergunta quantas bebidas
+//                        while (numberBebida < 1 || numberBebida > 9) {
+//
+//                            if (numberBebida < 0 || numberBebida > 9) {
+//                                System.out.print("\nBebida invalida.\nEscolha um numero existente: ");
+//                                numberBebida = entrada.nextInt();
+//                            }
+//                        }
+//                    }
+                }
+                return numberBebida;
+            } else {
+                System.out.println("\nBebida não encontrada.");
+                System.out.print("Você gostaria de adicionar alguma bebida ?\n" //
+                        + "1 = Sim\n" //
+                        + "2 = Não\n"//
+                        + "Numero escolhido: ");
+                opcaoBebida = entrada.nextInt();
+            }
+        }
         entrada.close();
         return numberBebida;
     }
 
     public void finalizarPedidoBebida() {
-        Bebidas b = this.funcoes.finalizarBebida(escolherBebida());
+
+        b = this.funcoes.finalizarBebida(escolherBebida());
+
+    }
+
+    public void finalizarPedido() {
+        p = this.funcoes.finalizarPedido(escolherPrato());
+        System.out.println(p.toString());
+        finalizarPedidoBebida();
+        notaFiscal();
+    }
+
+    @Override
+    public void valorDoPrato() {
+        p.setValor(p.getValor() + b.getPreco());
+        System.out.print("\n\t\tValor total do prato: " + p.getValor() + "\n");
+    }
+
+    @Override
+    public void calcularGramasDeComida() {
+    }
+
+    @Override
+    public void baixaEstoque() {
+
+    }
+
+    private void notaFiscal() {
+        System.out.println("________________________________________________________________________________\n");
+        ThreadSiriCascudo.thredDeExecucao();
+
+        System.out.println("\n________________________________________________________________________________");
+        System.out.println("\n\t\tNota fiscal\n");
+        Cliente.infoCliente();
+        System.out.print("\n\t\tProduto consumido.\n");
+        System.out.println(p.toString());
         System.out.println(b.toString());
+        valorDoPrato();
+        System.out.println("________________________________________________________________________________");
+
     }
 }

@@ -147,7 +147,7 @@ public class MetodosDAO {
                 System.out.printf("%d: %s, Preco: %.2f\n", RESULTADO.getInt("idBebidas"),
                         RESULTADO.getString("nomeBebida"), RESULTADO.getDouble("valor"));
             }
-
+            
         } catch (SQLException e) {
             System.out.println("Não foi possivel realizar essa operação " + e.getMessage());
         } finally {

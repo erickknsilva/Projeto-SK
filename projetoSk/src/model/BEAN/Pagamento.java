@@ -10,7 +10,7 @@ package model.BEAN;
  */
 public interface Pagamento {
 
-    double valorDoPrato();
+    public void valorDoPrato();
 
     public void calcularGramasDeComida();
 

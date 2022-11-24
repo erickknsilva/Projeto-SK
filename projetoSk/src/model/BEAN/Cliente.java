@@ -10,7 +10,7 @@ package model.BEAN;
  */
 public class Cliente {
 
-    private String nome, sobrenome, cpf;
+    private static String nome, sobrenome, cpf;
 
     public Cliente() {
     }
@@ -21,8 +21,8 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public void infoCliente() {
-        System.out.printf("Nome: %s, Cpf: %s\n", nome.concat(" " + sobrenome), cpf);
+    public static void infoCliente() {
+        System.out.printf("Cliente: %s, Cpf: %s\n", nome.concat(" " + sobrenome), cpf);
     }
 
     public String getNome() {
